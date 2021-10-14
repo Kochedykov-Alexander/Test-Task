@@ -1,5 +1,5 @@
 export interface IProduct {
-	id: number, 
+	readonly id: number, 
 	name: string,
 	description: string,
 	price: number
