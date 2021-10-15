@@ -3,6 +3,7 @@ import styles from '../styles/Main.module.scss'
 import Products from './Products'
 import Tabs from './UI/Tabs'
 import { IProduct } from "../types/IProduct";
+import sendEmail from '../hooks/useConfirmation';
 
 
 const Main: React.FC = () => {
@@ -18,7 +19,7 @@ const Main: React.FC = () => {
 						<div className={styles.main__body__container}>
 
 						
-						<form action="#" className={styles.main__form}>
+						<form onSubmit={sendEmail} className={styles.main__form}>
 							<Tabs></Tabs>
 						</form>
 						<Products products = {products}></Products>
