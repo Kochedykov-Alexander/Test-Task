@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from '../../styles/Header.module.scss'
-import logo from '../../img/header/logo.png';
-import icon from '../../img/header/Shape.png';
+
+
 
 const Header: React.FC = () => {
 	return (
@@ -9,7 +9,7 @@ const Header: React.FC = () => {
 			<div className={styles.header__container + " " + styles._container} >
 				<div className={styles.header__logo}>
 					<div className={styles.header__logo_icon}>
-						<img src={logo} alt=""/>
+						<img src='../../logo.png' alt=""/>
 					</div>
 					<div className= {styles.header__logo_text}>
 						
@@ -20,7 +20,7 @@ const Header: React.FC = () => {
 					cart
 				</div>
 				<div className={styles.header__busket_icon}>
-					<img src={icon} alt=""/>
+					<img src='../../basket.png' alt=""/>
 				</div>
 				
 			</div>

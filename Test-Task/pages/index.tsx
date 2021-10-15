@@ -7,9 +7,6 @@ import Header from "../components/Navbar/Header";
 
 
 const Index: React.FC = () => {
-
-	
-
 	return (
 		<div className={styles.wrapper}>
 			<Header></Header>

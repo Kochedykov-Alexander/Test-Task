@@ -2,9 +2,11 @@ import React, {useState, useEffect} from 'react';
 import { useGeolocation } from '../../hooks/useGeolocation';
 import { useIdentificationCard } from '../../hooks/useIdentificationCard';
 import { useInput } from '../../hooks/useInput';
-import logo from '../../img/payment/Shape.png';
 import InputMask from "react-input-mask";
-import emailjs from 'emailjs-com';
+import { faCrosshairs } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+//import sentContext from '../../shared/context';
+
 
 
 const Tabs: React.FC = () => {
@@ -23,7 +25,6 @@ const Tabs: React.FC = () => {
  	const b = useInput('', {});
 	const card = useInput('', {});
 	const email = useInput('', {isEmail: false});
-	const msg: string = "Проверка"
 	
 	const geo = useGeolocation(); 
 
@@ -32,12 +33,12 @@ const Tabs: React.FC = () => {
 	}, [card.value])
 
 	
-	
 
-	
+
 
 
 	return (
+
 		<div>
 			<div className="main-block__form__tabs">
 				<div className={toggleClass === 1 ? "tabs active-tabs" : "tabs"} onClick={() => setToggleClass(1)}>Shipping</div>
@@ -85,7 +86,7 @@ const Tabs: React.FC = () => {
 									<div className="content__inputs_icon">
 						
 										<input type="text" name="city" className={((b.isNext && city.isEmpty)) ? "content__inputs_city focused" : "content__inputs_city"} placeholder="City" value={geo.city == undefined ? city.value : geo.city} onChange={(e) => city.onChange(e)} onBlur={(e) => city.onBlur(e)}/>
-											{/* <FontAwesomeIcon icon={faCrosshairs} style={{position: 'absolute', top: '40%', right: '10px', fontSize: '20px', cursor: 'pointer'}} /> */}
+											<FontAwesomeIcon icon={faCrosshairs} style={{position: 'absolute', top: '40%', right: '10px', fontSize: '20px', cursor: 'pointer'}} />
 									</div>
 										<div className="content__inputs__row">
 											<div className="content__inputs__row_country">
@@ -141,7 +142,7 @@ const Tabs: React.FC = () => {
 										
 										<div className="content__inputs_icon">
 										<input type="text" name="city" className={((b.isNext && city.isEmpty)) ? "content__inputs_city focused" : "content__inputs_city"} placeholder="City" value={geo.city == undefined ? city.value : geo.city} onChange={(e) => city.onChange(e)} onBlur={(e) => city.onBlur(e)}/>
-											{/* <FontAwesomeIcon icon={faCrosshairs} style={{position: 'absolute', top: '40%', right: '10px', fontSize: '20px', cursor: 'pointer'}} /> */}
+											<FontAwesomeIcon icon={faCrosshairs} style={{position: 'absolute', top: '40%', right: '10px', fontSize: '20px', cursor: 'pointer'}} />
 										</div>
 										<div className="content__inputs__row">
 											<div className="content__inputs__row_country">
@@ -170,7 +171,7 @@ const Tabs: React.FC = () => {
 									</div>
 									<div className="content__ssl">
 										<div className="content__ssl_logo">
-											<img src={logo} alt="" />
+											<img src='../../lock.png' alt="" />
 										</div>
 										<div className="content__ssl_text">This is a secure 128-bit SSL encrypted payment</div>
 									</div>

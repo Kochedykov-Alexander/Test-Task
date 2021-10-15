@@ -1,0 +1,50 @@
+@import "index.module.scss";
+
+
+.order {
+	display: flex;
+	flex-direction: column;
+	margin-top: 60px;
+
+	&__title {
+		
+		font-size: 26px;
+		line-height: 119%;
+		color: #5A1094;
+	}
+
+	&__number {
+		margin-top: 30px;
+		font-weight: bold;
+		color: #2B2525;
+		font-size: 16px;
+		line-height: 119%;
+	}
+
+	&__text {
+		margin-top: 12px;
+		font-size: 16px;
+		line-height: 112%;
+		color: #2B2525;
+	}
+
+	&__estimated {
+		margin-top: 31px;
+		font-size: 16px;
+		line-height: 112%;
+		color: #2B2525;
+	}
+
+	&__print_recipe {
+		margin-top: 31px;
+		font-size: 13px;
+		line-height: 100%;
+		color: #5A1094;
+		text-decoration: underline;
+		cursor: pointer;
+	}
+}
+
+.bold {
+	font-weight: bold;
+}

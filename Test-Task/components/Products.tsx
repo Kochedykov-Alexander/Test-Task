@@ -24,9 +24,9 @@ const Products: React.FC<ProductsItemsProps> = ({products}) => {
 			</div>
 			<ul className={styles.products__items}>
 				{!loading &&  selectedProducts.map(product => 
-					<li className={styles.products__product}>
+					<li className={styles.products__product} key={product.id}>
 						<div className={styles.product__image}>
-							<Image src= '/../img/products/sumka.png' width={20} height={20} alt=""/>
+							<Image src= '/../public/sumka.png' width={45} height={45} alt=""/>
 						</div>
 						<div className={styles.product__content}>
 							<div className={styles.product__content_name}>
