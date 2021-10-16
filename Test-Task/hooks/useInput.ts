@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {FormEvent, useState} from 'react';
 import { useValidation } from './useValidation';
 
 export const useInput = (initialValue: string, validations: Object) => {

@@ -22,7 +22,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "shared/SentContextProvider.tsx", "shared/context.ts"  ],
+, "shared/SentContextProvider.tsx", "shared/context.ts", "hooks/useConfirmation.js"  ],
   "exclude": [
     "node_modules"
   ]

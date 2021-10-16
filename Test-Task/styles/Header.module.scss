@@ -58,6 +58,10 @@
 			width: 227px;
 			height: 17px;
 			background: url('../img/header/header_text.png') 0 0 / cover no-repeat;
+
+			@media(max-width: 340px) {
+				display: none;
+			}
 		}
 	}
 
@@ -77,6 +81,7 @@
 			width: 20.42px;
 			height: 16px;
 			position: relative;
+			display: inline-block;
 		}
 
 		&_icon img {
@@ -86,6 +91,25 @@
 			width: 100%;
 			height: 100%;
 			object-fit: cover;
+		}
+
+		&_count {
+			padding: 1.5px 4px;
+			position: absolute;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			left: 80%;
+			top: -40%;
+			min-width: 15px;
+			min-height: 15px;
+			background: #FF1876;
+			border: 1px solid #FFFFFF;
+			border-radius: 50%;
+			font-size: 9px;
+			line-height: 122%;
+			text-align: center;
+			color: #FFFFFF;
 		}
 	}
 			

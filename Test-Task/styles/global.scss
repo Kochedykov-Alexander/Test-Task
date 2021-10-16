@@ -80,9 +80,11 @@
 	font-size: 16px;
 	line-height: 112%;
 	color: #6B6B6B;
-	padding: 12px 0 12px 0px;
+	padding: 12px 0px 12px 0px;
 	text-overflow: ellipsis;
   }
+
+  
   
   ::-moz-placeholder {
 	font-size: 16px;
@@ -109,7 +111,16 @@
 	padding: 12px 0 12px 0px;
 	text-overflow: ellipsis;
   }
-  
+
+  input::-webkit-calendar-picker-indicator {
+	position: absolute;
+	display: none !important;
+	left: 35px;
+	background: url('../public/search.png') 0 0 / 13px 13px no-repeat;
+	opacity: 0;
+	
+  }
+
   input[placeholder] {
 	-o-text-overflow: ellipsis;
 	   text-overflow: ellipsis;
@@ -133,6 +144,8 @@
 	-o-transition: opacity 0.3s ease;
 	transition: opacity 0.3s ease;
   }
+
+  
   
   input::-moz-placeholder {
 	opacity: 1;
@@ -183,14 +196,16 @@
 	transition: opacity 0.3s ease;
   }
   
-  select {
-	font-size: 16px;
-	line-height: 112%;
-	color: #6B6B6B;
-	padding: 6px 0 6px 12px;
-	-o-text-overflow: ellipsis;
-	   text-overflow: ellipsis;
-  }
+  .select::-webkit-input-placeholder {
+	position: absolute;
+  padding: 12px 0px 12px 0px;
+  left: 40px;
+  font-size: 16px;
+  line-height: 112%;
+  color: #6B6B6B;
+  padding: 12px 0px 12px 0px;
+  text-overflow: ellipsis;
+}
   
   label {
 	font-size: 13px;
@@ -207,10 +222,11 @@
 
 
   .main-block__form__tabs {
-	display: -webkit-box;
-	display: -ms-flexbox;
 	display: flex;
-	cursor: pointer;
+	flex-wrap: wrap;
+	
+	
+	
 }
 
 .tabs {
@@ -219,17 +235,19 @@
 	color: #979797;
 	mix-blend-mode: normal;
 	opacity: 0.8;
-	display: -webkit-inline-box;
-	display: -ms-inline-flexbox;
-	display: inline-flex;
+	display: flex;
+	flex-wrap: wrap;
 	-webkit-box-align: center;
 		-ms-flex-align: center;
 			align-items: center;
 	position: relative;
+	margin-top: 20px;
+	cursor: pointer;
+	
   }
   
-  .tabs:not(:first-child) {
-	margin-left: 39px;
+  .tabs:not(:last-child) {
+	margin-right: 39px;
   }
   
   .tabs:not(:last-child)::after {
@@ -263,12 +281,28 @@
 	font-size: 26px;
 	line-height: 31px;
 	margin-top: 20px;
+	display: inline-flex;
+	padding-right: 20px;
+	
+	
   }
   
   .content__recipient_text {
 	margin-top: 20px;
 	font-size: 16px;
 	line-height: 112.5%;
+	
+	
+  }
+
+  .content__recipient_link {
+	  display: inline-flex;
+	  font-size: 12px;
+	  line-height: 117%;
+	  color: #5A1094;
+	  cursor: pointer;
+	  text-decoration: underline;
+	  
   }
   
   .content__address_text {
@@ -283,7 +317,7 @@
 	-webkit-box-sizing: border-box;
 			box-sizing: border-box;
 	border-radius: 5px;
-	width: 180px;
+	width: 56%;
 	height: 45px;
 	font-size: 16px;
 	line-height: 119%;
@@ -345,12 +379,39 @@
 			justify-content: space-between;
 	margin-top: 10px;
   }
+
+  .content__inputs__row_count {
+	  width: 57%;
+	  height: 40px;
+	  display: block;
+	  position: relative;
+  }
   
   .content__inputs__row_country {
-	width: 57%;
+	width: 100%;
 	height: 40px;
 	position: relative;
 	display: block;
+	border: 1px solid #DEDCDC;
+	border-radius: 5px;
+  }
+
+  .content__inputs__row_country_new:after {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 50%;
+	margin-top: -5px;
+	pointer-events: none;
+	right: 15px;
+	width: 25.5px;
+	height: 8.5px;
+	border-top: 1.5px solid #9B9B9B;
+	border-left: 1.5px solid #9B9B9B;
+	-webkit-transform: rotate(225deg);
+		-ms-transform: rotate(225deg);
+			transform: rotate(225deg);
+	z-index: 51;
   }
   
   .content__inputs__row_country:after {
@@ -370,22 +431,34 @@
 			transform: rotate(225deg);
 	z-index: 51;
   }
+
   
-  .content__inputs__row_country select {
+
+
+  
+  .select {
+	  background-color: red;
 	width: 100%;
 	height: 100%;
 	-webkit-box-sizing: border-box;
 			box-sizing: border-box;
-	border-radius: 5px;
+	
 	padding-right: 40px;
-	border: 1px solid #DEDCDC;
+	padding-left: 60px;
+	position: relative;
 	background: none;
 	-webkit-appearance: none;
 	-moz-appearance: none;
 		 appearance: none;
 	font-family: inherit;
 	font-size: 1rem;
+	position: absolute;
+	top: 0;
+	left: -25px;
+	
   }
+
+  
   
   .content__inputs__row_zip {
 	width: 37%;
@@ -519,6 +592,14 @@
 
 	  
   }
+
+  .disabled {
+	background: rgba(90, 16, 148, 0.2);
+	border: 1px solid rgba(67, 28, 93, 0.2);
+  }
+
+
+  
 
 
 

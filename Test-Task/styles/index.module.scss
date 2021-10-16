@@ -13,5 +13,13 @@
 	max-width: 68%;
 	padding: 0 10px;
 	box-sizing: content-box;
-	
+
+	@media(max-width: 700px) {
+		margin: 0 auto;
+		max-width: 100%;
+		padding: 0 10px;
+		box-sizing: content-box;
+	}
 }
+
+

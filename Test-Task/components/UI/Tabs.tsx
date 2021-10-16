@@ -1,16 +1,24 @@
-import React, {useState, useEffect} from 'react';
+import React, {useContext, useEffect, useState} from 'react'
+import sentContext from '../../shared/context';
 import { useGeolocation } from '../../hooks/useGeolocation';
 import { useIdentificationCard } from '../../hooks/useIdentificationCard';
 import { useInput } from '../../hooks/useInput';
 import InputMask from "react-input-mask";
 import { faCrosshairs } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { sendEmail } from '../../hooks/useConfirmation';
+
 //import sentContext from '../../shared/context';
 
+interface TabsProps {
+	children?: React.ReactChild | React.ReactNode,
+	geolocation: Object
+}
 
+const Tabs: React.FC = ({geolocation} : TabsProps) => {
 
-const Tabs: React.FC = () => {
-
+	const geo = undefined;
+	const {state, setState} = useContext(sentContext);
 
 	const [toggleClass, setToggleClass] = useState<number>(1);
 	const [cardType, setCardType] = useState<string>('');
@@ -23,17 +31,20 @@ const Tabs: React.FC = () => {
 	const country = useInput('Country', {isEmpty: true});
 	const zip = useInput('', {isEmpty: true});
  	const b = useInput('', {});
-	const card = useInput('', {});
+	const card = useInput('', {isEmpty: true});
+	const expire = useInput('', {isEmpty: true});
+	const security = useInput('', {isEmpty: true});
 	const email = useInput('', {isEmail: false});
 	
-	const geo = useGeolocation(); 
 
 	useEffect(() => {
 		setCardType(useIdentificationCard(card.value));
 	}, [card.value])
 
-	
-
+	// // function clicked() :void {
+	// // 	document.getElementById("editor").classList.remove('content__inputs__row_country');
+	// // 	document.getElementById("editor").classList.add('content__inputs__row_country_new');
+	// }
 
 
 
@@ -41,7 +52,7 @@ const Tabs: React.FC = () => {
 
 		<div>
 			<div className="main-block__form__tabs">
-				<div className={toggleClass === 1 ? "tabs active-tabs" : "tabs"} onClick={() => setToggleClass(1)}>Shipping</div>
+				<div className={toggleClass === 1 ? "tabs active-tabs" : "tabs"} id="tab1" onClick={() => setToggleClass(1)}>Shipping</div>
 				<div className={toggleClass === 2 ? "tabs active-tabs" : "tabs"} onClick={() => setToggleClass(2)}>Billing</div>
 				<div className={toggleClass === 3 ? "tabs active-tabs" : "tabs"} onClick={() => setToggleClass(3)}>Payment</div>
 			</div>
@@ -85,20 +96,23 @@ const Tabs: React.FC = () => {
 
 									<div className="content__inputs_icon">
 						
-										<input type="text" name="city" className={((b.isNext && city.isEmpty)) ? "content__inputs_city focused" : "content__inputs_city"} placeholder="City" value={geo.city == undefined ? city.value : geo.city} onChange={(e) => city.onChange(e)} onBlur={(e) => city.onBlur(e)}/>
-											<FontAwesomeIcon icon={faCrosshairs} style={{position: 'absolute', top: '40%', right: '10px', fontSize: '20px', cursor: 'pointer'}} />
+										<input type="text" name="city" className={((b.isNext && city.isEmpty)) ? "content__inputs_city focused" : "content__inputs_city"} placeholder="City" value={geolocation.city == '' ? city.value : geolocation.city} onChange={(e) => city.onChange(e)} onBlur={(e) => city.onBlur(e)}/>
+											<FontAwesomeIcon icon={faCrosshairs} style={{position: 'absolute', top: '40%', right: '10px', fontSize: '20px', cursor: 'pointer'}}/>
 									</div>
 										<div className="content__inputs__row">
-											<div className="content__inputs__row_country">
-											<select onChange={(e) => country.onChange(e)} onBlur={(e) => country.onBlur(e)}>
-													<option value={geo.country == undefined ? country.value : geo.country} selected disabled>{(geo.country == undefined) ? country.value : geo.country}</option>
-													<option value="Russia">Russia</option>
-													<option value="USA">USA</option>
-													<option value="UK">UK</option>
-													<option value="Ukraine">Ukraine</option>
-											</select>
+										<div className="content__inputs__row_count">
+											<div className="content__inputs__row_country" id="editor">
+											
+
+											<input type="text" className="select" placeholder="Country" value={geolocation.country == '' ? "" : geolocation.country} name="city" list="cityname" onChange={(e) => country.onChange(e)} onBlur={(e) => country.onBlur(e)}/>
+												<datalist id="cityname">
+													<option value="Boston"/>
+													<option value="Cambridge"/>
+												</datalist>
+											
 											</div>
-											<input type="text" className={((b.isNext && zip.isEmpty)) ? "content__inputs__row_zip focused" : "content__inputs__row_zip"} placeholder="ZIP" value={geo.zip == undefined ? zip.value : geo.zip} onChange={(e) => zip.onChange(e)} onBlur={(e) => zip.onBlur(e)}/>
+											</div>
+											<input type="text" className={((b.isNext && zip.isEmpty)) ? "content__inputs__row_zip focused" : "content__inputs__row_zip"} placeholder="ZIP" value={geolocation.zip == '' ? zip.value :  geolocation.zip} onChange={(e) => zip.onChange(e)} onBlur={(e) => zip.onBlur(e)}/>
 										</div>
 									</div>
 									{(full_name.inputValid && phone.inputValid && street.inputValid && city.inputValid && country.inputValid && zip.inputValid) && 
@@ -113,10 +127,14 @@ const Tabs: React.FC = () => {
 									<div className="content__title">
 										Billing Information
 									</div>
+									<a onClick={() => setToggleClass(1)} className="content__recipient_link">
+											Same as shipping
+									</a>
 									<div className="content__recipient">
 										<div className="content__recipient_text">
 											Billing Contact
 										</div>
+										
 									</div>
 									<div className="content__inputs">
 
@@ -141,20 +159,23 @@ const Tabs: React.FC = () => {
 											<input type="text" className="content__inputs_apt" placeholder="Apt, Suite, Bldg, Gate Code. (optional)" value={apt.value} onChange={(e) => apt.onChange(e)} onBlur={(e) => apt.onBlur(e)}/>
 										
 										<div className="content__inputs_icon">
-										<input type="text" name="city" className={((b.isNext && city.isEmpty)) ? "content__inputs_city focused" : "content__inputs_city"} placeholder="City" value={geo.city == undefined ? city.value : geo.city} onChange={(e) => city.onChange(e)} onBlur={(e) => city.onBlur(e)}/>
-											<FontAwesomeIcon icon={faCrosshairs} style={{position: 'absolute', top: '40%', right: '10px', fontSize: '20px', cursor: 'pointer'}} />
+										<input type="text" name="city" className={((b.isNext && city.isEmpty)) ? "content__inputs_city focused" : "content__inputs_city"} placeholder="City" value={geo == undefined ? city.value : geo.city} onChange={(e) => city.onChange(e)} onBlur={(e) => city.onBlur(e)}/>
+											<FontAwesomeIcon icon={faCrosshairs} style={{position: 'absolute', top: '40%', right: '10px', fontSize: '20px', cursor: 'pointer'}}/>
 										</div>
 										<div className="content__inputs__row">
-											<div className="content__inputs__row_country">
-											<select onChange={(e) => country.onChange(e)} onBlur={(e) => country.onBlur(e)}>
-													<option value={geo.country == undefined ? country.value : geo.country} selected disabled>{(geo.country === undefined) ? country.value : geo.country}</option>
-													<option value="Russia">Russia</option>
-													<option value="USA">USA</option>
-													<option value="UK">UK</option>
-													<option value="Ukraine">Ukraine</option>
-											</select>
+										<div className="content__inputs__row_count">
+											<div className="content__inputs__row_country" id="editor">
+											
+
+											<input type="text" className="select" placeholder="Country" value={geolocation.country == '' ? "" : geolocation.country} name="city" list="cityname" onBlur={(e) => country.onBlur(e)}/>
+												<datalist id="cityname">
+													<option value="Boston"/>
+													<option value="Cambridge"/>
+												</datalist>
+											
 											</div>
-											<input type="text" className={((b.isNext && zip.isEmpty)) ? "content__inputs__row_zip focused" : "content__inputs__row_zip"} placeholder="ZIP" value={geo.zip == undefined ? zip.value : geo.zip} onChange={(e) => zip.onChange(e)} onBlur={(e) => zip.onBlur(e)}/>
+											</div>
+											<input type="text" className={((b.isNext && zip.isEmpty)) ? "content__inputs__row_zip focused" : "content__inputs__row_zip"} placeholder="ZIP" value={geolocation.zip == '' ? zip.value :  geolocation.zip} onChange={(e) => zip.onChange(e)} onBlur={(e) => zip.onBlur(e)}/>
 										</div>
 									</div>
 									{(full_name.inputValid && street.inputValid && city.inputValid && country.inputValid && zip.inputValid) && 
@@ -200,18 +221,26 @@ const Tabs: React.FC = () => {
 									<div className="content__cards__info">
 										<div className="content__cards__info__expire">
 											<div className="content__cards_info__expire_text">Expire Date</div>
-											<InputMask mask="99 / 99" placeholder="MM / YY" type="text" className="content__cards_info__expire_input" name="message"/>
+											<InputMask mask="99 / 99" placeholder="MM / YY" type="text" className="content__cards_info__expire_input" name="message" value={expire.value} onChange={(e) => expire.onChange(e)} onBlur={(e) => expire.onBlur(e)}/>
 										</div>
 										<div className="content__cards__info__security">
 											<div className="content__cards_info__security_text">Security Code</div>
-											<InputMask mask="999" type="text" placeholder="XXX" className="content__cards_info__security_input" name="subject"/>
+											<InputMask mask="999" type="text" placeholder="XXX" className="content__cards_info__security_input" name="subject" value={security.value} onChange={(e) => security.onChange(e)} onBlur={(e) => security.onBlur(e)}/>
 										</div>
 									</div>
+									{(full_name.inputValid && street.inputValid && city.inputValid && country.inputValid && zip.inputValid && card.inputValid && security.inputValid && expire.inputValid) && 
 									<button className="content__button" type="submit">
 										Pay Securely
-									</button>	
+									</button>
+									}
+									{!(full_name.inputValid && street.inputValid && city.inputValid && country.inputValid && zip.inputValid && card.inputValid && security.inputValid && expire.inputValid) && 	
+									<button className="content__button disabled" disabled>
+										Pay Securely
+									</button>
+									}
 								</div>
 							</div>
+							
 						
 		</div>
 	)

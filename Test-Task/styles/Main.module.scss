@@ -41,14 +41,19 @@
 	}
 
 	&__form {
-		max-height: 800px;
+		max-height: 900px;
 		grid-area: form;
 		padding: 25px 40px 40px 40px;
 		background-color: #fff;
 		border-radius: 5px;
 
+		@media(max-width: 340px) {
+			padding: 25px 10px 40px 10px;
+		}
+
 		&__tabs {
 			display: flex;
+			
 			cursor: pointer;
 		}
 	}

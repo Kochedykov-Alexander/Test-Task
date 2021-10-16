@@ -21,6 +21,7 @@ const Header: React.FC = () => {
 				</div>
 				<div className={styles.header__busket_icon}>
 					<img src='../../basket.png' alt=""/>
+					<span className={styles.header__busket_count}>4</span>
 				</div>
 				
 			</div>

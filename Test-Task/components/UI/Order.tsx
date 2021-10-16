@@ -1,7 +1,13 @@
-import React, {FC} from 'react'
+import React, {useContext, useEffect} from 'react'
 import styles from '../../styles/Order.module.scss'
+import sentContext from '../../shared/context';
 
 const Order: React.FC = () => {
+	
+	const {state, setState} = useContext(sentContext);
+
+	
+
 	return (
 		<div className={styles.order}>
 			<div className={styles.order__title}>
@@ -19,8 +25,6 @@ const Order: React.FC = () => {
 			<a className={styles.order__print_recipe}>Print Recipe</a>
 			
 		</div>
-
-		
 	)
 }
 
