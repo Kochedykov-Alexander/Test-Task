@@ -344,6 +344,16 @@
 			flex-direction: column;
 	margin-top: 6px;
   }
+
+  .input_card {
+	  position: relative;
+  }
+
+  .input_card img {
+	  position: absolute;
+	  top: 45%;
+	  right: 15px;
+  }
   
   .content__inputs_fullname, .content__inputs_street, .content__inputs_apt, .content__inputs_city, .content__inputs_email, .content__inputs_cardholder, .content__inputs_card {
 	width: 100%;
@@ -356,6 +366,7 @@
 	border-radius: 5px;
 	padding-right: 40px;
   }
+
   
   .content__inputs_daytime {
 	width: 60%;
@@ -518,6 +529,7 @@
 	display: flex;
 	flex-wrap: wrap;
 	width: 100%;
+	margin-top: 20px;
 	
 }
 

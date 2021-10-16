@@ -6,7 +6,7 @@ import { useInput } from '../../hooks/useInput';
 import InputMask from "react-input-mask";
 import { faCrosshairs } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { sendEmail } from '../../hooks/useConfirmation';
+
 
 //import sentContext from '../../shared/context';
 
@@ -211,13 +211,11 @@ const Tabs: React.FC = ({geolocation} : TabsProps) => {
 											Card Number
 										</div>
 									</div>
-									<div className="content__inputs">
+									<div className="content__inputs input_card">
 										<InputMask mask="9999 9999 9999 9999" name="card" type="text" className="content__inputs_card" placeholder="XXXX XXXX XXXX XXXX XXXX" value={card.value} onChange={(e) => card.onChange(e)} onBlur={(e) => card.onBlur(e)}/>
-										
-									</div>
-									<div>
 										<img src={cardType} alt="" />
 									</div>
+									
 									<div className="content__cards__info">
 										<div className="content__cards__info__expire">
 											<div className="content__cards_info__expire_text">Expire Date</div>

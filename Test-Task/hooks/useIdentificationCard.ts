@@ -3,7 +3,7 @@ export function useIdentificationCard(value: string): string
     // visa
     var regex = new RegExp("^4");
     if (value.match(regex) != null)
-        return "../img/tabs/cards/visa.png";
+        return "/../../visa.png";
 
     // Mastercard 
     // Updated for Mastercard 2017 BINs expansion
