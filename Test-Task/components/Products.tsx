@@ -1,15 +1,27 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect} from 'react'
 import styles from '../styles/Products.module.scss'
 import { IProduct } from '../types/IProduct';
 import Image from 'next/image';
+import { useQuery } from '@apollo/client';
+import { GET_ALL_PRODUCTS } from '../query/product';
 
-interface ProductsItemsProps {
-	products: IProduct[];
-}
-const Products: React.FC<ProductsItemsProps> = ({products}) => {
 
-	const [selectedProducts, setSelectedProducts] = useState<IProduct[]>(products)
-	const [loading, setLoading] = useState<boolean>(false);
+
+const Products: React.FC = () => {
+
+	const [selectedProducts, setSelectedProducts] = useState<IProduct[]>([])
+	const {data, loading, error, refetch} = useQuery(GET_ALL_PRODUCTS, {pollInterval: 500});
+	
+
+	useEffect(() => {
+		if (!loading) {
+			setSelectedProducts(data.getAllProducts)
+		}	
+	}, [data])
+	
+	if (loading) {
+		return <h1>Loading...</h1>
+	}
 
 	return (
 
@@ -46,7 +58,6 @@ const Products: React.FC<ProductsItemsProps> = ({products}) => {
 					</li>
 
 				)}
-
 			</ul>
 				<div className={styles.products__cost}>
 					<div className={styles.cost__subtotal}>

@@ -27,14 +27,14 @@ export const useValidation = (value: string, validations: Object) => {
 	}, [value])
 
 	useEffect(() => {
-		if (isMinLengthError || isEmpty) {
+		if (isMinLengthError || isEmpty || isEmailError) {
 			setInputValid(false);
 		}
 		else {
 			setInputValid(true);
 		}
 		
-	}, [isEmpty, isMinLengthError])
+	}, [isEmpty, isMinLengthError, isEmailError])
 
 	
 	

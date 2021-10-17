@@ -20,7 +20,6 @@ export const useInput = (initialValue: string, validations: Object) => {
 	const onClick = (e: React.MouseEvent<HTMLInputElement>): void => {
 		e.preventDefault();
 		setIsNext(true);
-
 	}
 
 	return {
