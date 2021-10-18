@@ -19,10 +19,18 @@ interface OrderState {
 	// security_code: string;
 }
 
+interface OrderProps {
+	id: string
+	full_name: string
+	email: string
+}
+
+
+
 const Order: React.FC<OrderState> = ({order}) => {
 
 	
-	const [selectedOrder, setSelectedOrder] = useState({});
+	const [selectedOrder, setSelectedOrder] = useState<OrderProps>();
 	console.log(order)
 	const {data, loading, error, refetch} = useQuery(GET_ORDER_BY_ID, {
 		variables: {
@@ -60,7 +68,7 @@ const Order: React.FC<OrderState> = ({order}) => {
 				Your will recieve an email confirmation shortly to <a href="">{selectedOrder.email}</a>
 			</div>
 			<div className={styles.order__estimated}>
-				Estimated delivery Day is <p className={styles.bold}>Friday 1st April 2016</p>
+				Estimated delivery Day is <p className={styles.bold}>Friday 27st October 2021</p>
 			</div>	
 			<a className={styles.order__print_recipe} onClick={printRecipe}>Print Recipe</a>
 			</div>
