@@ -6,6 +6,7 @@ import { useInput } from '../../hooks/useInput';
 import InputMask from "react-input-mask";
 import { faCrosshairs } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import $ from 'jquery'
 
 
 //import sentContext from '../../shared/context';
@@ -21,30 +22,47 @@ const Tabs: React.FC = () => {
 	
 	const [toggleClass, setToggleClass] = useState<number>(1);
 	const [cardType, setCardType] = useState<string>('');
-	const [detected, setDetected] = useState<boolean>(false);
 	
+	var geolocation = useGeolocation();
 
 	const full_name = useInput('', {isEmpty: true, minLength: 3});
 	const street = useInput('', {isEmpty: true});
 	const phone = useInput('', {isEmpty: true});
 	const apt = useInput('', {});
 	const city = useInput('', {isEmpty: true});
-	const country = useInput('Country', {isEmpty: true});
+	const country = useInput('', {isEmpty: true});
 	const zip = useInput('', {isEmpty: true});
  	const b = useInput('', {});
 	const card_number = useInput('', {isEmpty: true});
 	const expire_date = useInput('', {isEmpty: true});
 	const security_code = useInput('', {isEmpty: true});
 	const email = useInput('', {isEmail: true});
-	var geolocation = useGeolocation();
+	
+	
+	useEffect(() => {
+		$('.select').focus(function() {
+				$('.content__inputs__row_country').toggleClass('content__inputs__row_country_search')
+				$('.content__inputs__row_country').removeClass('content__inputs__row_country_arrow')
+		});
+		$('.select').blur(function() {
+			$('.content__inputs__row_country').removeClass('content__inputs__row_country_search')
+			$('.content__inputs__row_country').toggleClass('content__inputs__row_country_arrow')
+	});
 
-	function getDetection(){
-		setDetected(true)
+	}, [])
+	
+	
+	
+	useEffect(() => {
+		
+	}, [geolocation])
+
+	const getDetected = () => {
+		geolocation;
 	}
 
-	// if (detected) {
-	// 	return useGeolocation();
-	// }
+
+	
 
 	useEffect(() => {
 		setCardType(useIdentificationCard(card_number.value));
@@ -79,7 +97,7 @@ const Tabs: React.FC = () => {
 							
 										<div className="content__inputs_daytime_container">
 											{((b.isNext && phone.isEmpty)) && (<div className='message'>Please enter recipient phone in format +7 (000) 000 00 00</div>)}
-												<InputMask name="phone" mask="+7\(999) 999-99-99" type="tel" className={((b.isNext && phone.isEmpty)) ? "content__inputs_daytime focused" : "content__inputs_daytime"} id="phoneNumber" placeholder="Datetime Phone" value={phone.value} onChange={(e) => phone.onChange(e)} onBlur={(e) => phone.onBlur(e)}/>
+												<InputMask name="phone" mask="+7\(999)999-99-99" type="tel" className={((b.isNext && phone.isEmpty)) ? "content__inputs_daytime focused" : "content__inputs_daytime"} id="phoneNumber" placeholder="Datetime Phone" value={phone.value} onChange={(e) => phone.onChange(e)} onBlur={(e) => phone.onBlur(e)}/>
 											<label htmlFor ="content__inputs_daytime_label">For delivery questions only</label>
 										
 									</div>
@@ -98,17 +116,16 @@ const Tabs: React.FC = () => {
 										<input type="text" className="content__inputs_apt" name="apt" placeholder="Apt, Suite, Bldg, Gate Code. (optional)" value={apt.value} onChange={(e) => apt.onChange(e)} onBlur={(e) => apt.onBlur(e)}/>
 
 									<div className="content__inputs_icon">
-						
-										<input type="text" name="city" className={((b.isNext && city.isEmpty)) ? "content__inputs_city focused" : "content__inputs_city"} placeholder="City" value={geolocation == undefined ? city.value : geolocation.city} onChange={(e) => city.onChange(e)} onBlur={(e) => city.onBlur(e)}/>
-											{!geolocation ? <FontAwesomeIcon onClick={getDetection} icon={faCrosshairs} style={{position: 'absolute', top: '40%', right: '10px', fontSize: '20px', cursor: 'pointer'}}/> : <FontAwesomeIcon icon={faCrosshairs} style={{position: 'absolute', top: '40%', right: '10px', color: 'red', fontSize: '20px', cursor: 'pointer'}}/>}
+										
+										<input type="text" name="city" className={((b.isNext && city.isEmpty)) ? "content__inputs_city focused" : "content__inputs_city"} placeholder="City" value={geolocation.city ? geolocation.city : city.value} onChange={(e) => {city.onChange(e)}} onBlur={(e) => city.onBlur(e)}/>
+											{!geolocation ? <FontAwesomeIcon onClick={getDetected} icon={faCrosshairs} style={{position: 'absolute', top: '40%', right: '10px', fontSize: '20px', cursor: 'pointer'}}/> : <FontAwesomeIcon icon={faCrosshairs} style={{position: 'absolute', opacity: '0.4', top: '40%', right: '10px', fontSize: '20px', cursor: 'pointer'}}/>}
 											
 									</div>
 										<div className="content__inputs__row">
 										<div className="content__inputs__row_count">
-											<div className="content__inputs__row_country" id="editor">
-											
+											<div className="content__inputs__row_country content__inputs__row_country_arrow" id="editor">
 
-											<input type="text" className="select" placeholder="Country" value={geolocation == undefined ? "" : geolocation.country} list="cityname" onChange={(e) => country.onChange(e)} onBlur={(e) => country.onBlur(e)}/>
+											<input type="text" className="select" name="country" placeholder="Country" list="cityname" value={geolocation.country ? geolocation.country : country.value} onChange={(e) => {country.onChange(e)}} onBlur={(e) => country.onBlur(e)}/>
 												<datalist id="cityname">
 													<option value="Boston"/>
 													<option value="Cambridge"/>
@@ -116,7 +133,7 @@ const Tabs: React.FC = () => {
 											
 											</div>
 											</div>
-											<input type="text" className={((b.isNext && zip.isEmpty)) ? "content__inputs__row_zip focused" : "content__inputs__row_zip"} name="zip" placeholder="ZIP" value={geolocation == undefined ? zip.value :  geolocation.zip} onChange={(e) => zip.onChange(e)} onBlur={(e) => zip.onBlur(e)}/>
+											<input type="text" className={((b.isNext && zip.isEmpty)) ? "content__inputs__row_zip focused" : "content__inputs__row_zip"} name="zip" placeholder="ZIP" value={geolocation.zip ? geolocation.zip : zip.value} onChange={(e) => {zip.onChange(e)}} onBlur={(e) => zip.onBlur(e)}/>
 										</div>
 									</div>
 									{(full_name.inputValid && phone.inputValid && street.inputValid && city.inputValid && country.inputValid && zip.inputValid) && 
@@ -146,7 +163,7 @@ const Tabs: React.FC = () => {
 										<input type="text" className={((b.isNext && full_name.isEmpty) || (b.isNext && full_name.isMinLengthError)) ? "content__inputs_fullname focused" : "content__inputs_fullname"} name="name" placeholder="Full Name" value={full_name.value} onChange={(e) => full_name.onChange(e)} onBlur={(e) => full_name.onBlur(e)}/>
 
 									{(b.isNext && email.isEmailError) && (<div className='message'>Please enter correct email</div>)}
-										<input type="text" className={((b.isNext && email.isEmailError)) ? "content__inputs_email focused" : "content__inputs_email"} name="email" placeholder="Email Address" value={email.value} onChange={(e) => email.onChange(e)} onBlur={(e) => email.onBlur(e)} name="email"/>
+										<input type="text" className={((b.isNext && email.isEmailError)) ? "content__inputs_email focused" : "content__inputs_email"} name="email" placeholder="Email Address" value={email.value} onChange={(e) => email.onChange(e)} onBlur={(e) => email.onBlur(e)} />
 											
 									</div>
 									
@@ -163,15 +180,15 @@ const Tabs: React.FC = () => {
 											<input type="text" className="content__inputs_apt" placeholder="Apt, Suite, Bldg, Gate Code. (optional)" name="apt" value={apt.value} onChange={(e) => apt.onChange(e)} onBlur={(e) => apt.onBlur(e)}/>
 										
 										<div className="content__inputs_icon">
-										<input type="text" name="city" className={((b.isNext && city.isEmpty)) ? "content__inputs_city focused" : "content__inputs_city"} placeholder="City" value={geolocation == undefined ? city.value : geolocation.city} onChange={(e) => city.onChange(e)} onBlur={(e) => city.onBlur(e)}/>
-											<FontAwesomeIcon icon={faCrosshairs} style={{position: 'absolute', top: '40%', right: '10px', fontSize: '20px', cursor: 'pointer'}}/>
+										<input type="text" name="city" className={((b.isNext && city.isEmpty)) ? "content__inputs_city focused" : "content__inputs_city"} placeholder="City" value={geolocation.city ? geolocation.city : city.value} onChange={(e) => {city.onChange(e)}} onBlur={(e) => city.onBlur(e)}/>
+											{!geolocation ? <FontAwesomeIcon icon={faCrosshairs} style={{position: 'absolute', top: '40%', right: '10px', fontSize: '20px', cursor: 'pointer'}}/> : <FontAwesomeIcon icon={faCrosshairs} style={{position: 'absolute', opacity: '0.4', top: '40%', right: '10px', fontSize: '20px', cursor: 'pointer'}}/>}
 										</div>
 										<div className="content__inputs__row">
 										<div className="content__inputs__row_count">
 											<div className="content__inputs__row_country" id="editor">
 											
 
-											<input type="text" className="select" placeholder="Country" value={geolocation == undefined ? "" : geolocation.country} list="cityname" onBlur={(e) => country.onBlur(e)}/>
+											<input type="text" className="select" name="country" placeholder="Country" list="cityname" value={geolocation.country ? geolocation.country : country.value} onChange={(e) => {country.onChange(e)}} onBlur={(e) => country.onBlur(e)}/>
 												<datalist id="cityname">
 													<option value="Boston"/>
 													<option value="Cambridge"/>
@@ -179,7 +196,7 @@ const Tabs: React.FC = () => {
 											
 											</div>
 											</div>
-											<input type="text" className={((b.isNext && zip.isEmpty)) ? "content__inputs__row_zip focused" : "content__inputs__row_zip"} name="zip" placeholder="ZIP" value={geolocation == undefined ? zip.value :  geolocation.zip} onChange={(e) => zip.onChange(e)} onBlur={(e) => zip.onBlur(e)}/>
+											<input type="text" className={((b.isNext && zip.isEmpty)) ? "content__inputs__row_zip focused" : "content__inputs__row_zip"} name="zip" placeholder="ZIP" value={geolocation.zip ? geolocation.zip : zip.value} onChange={(e) => {zip.onChange(e)}} onBlur={(e) => zip.onBlur(e)}/>
 										</div>
 									</div>
 									{(full_name.inputValid &&  street.inputValid && city.inputValid && country.inputValid && zip.inputValid) && 

@@ -115,10 +115,24 @@
   input::-webkit-calendar-picker-indicator {
 	position: absolute;
 	display: none !important;
-	left: 35px;
-	background: url('../public/search.png') 0 0 / 13px 13px no-repeat;
-	opacity: 0;
+  }
+
+  .select::before{
+	  content: "";
+	position: absolute;
+	width: 10px;
+	height: 10px;
+	// background: url('../public/search.png') 0 0 / 13px 13px no-repeat !important;
+	background-color: #D0021B;
+	opacity: 1;
+	z-index: 100;
 	
+  }
+
+  option{
+	  position: absolute;
+	  left: 35px;
+	  
   }
 
   input[placeholder] {
@@ -196,10 +210,10 @@
 	transition: opacity 0.3s ease;
   }
   
-  .select::-webkit-input-placeholder {
-	position: absolute;
+.select::-webkit-input-placeholder {
+  position: absolute;
   padding: 12px 0px 12px 0px;
-  left: 40px;
+  left: 15px;
   font-size: 16px;
   line-height: 112%;
   color: #6B6B6B;
@@ -405,27 +419,11 @@
 	display: block;
 	border: 1px solid #DEDCDC;
 	border-radius: 5px;
+	background-color: #D0021B;
+	z-index: 60;
   }
 
-  .content__inputs__row_country_new:after {
-	content: "";
-	display: block;
-	position: absolute;
-	top: 50%;
-	margin-top: -5px;
-	pointer-events: none;
-	right: 15px;
-	width: 25.5px;
-	height: 8.5px;
-	border-top: 1.5px solid #9B9B9B;
-	border-left: 1.5px solid #9B9B9B;
-	-webkit-transform: rotate(225deg);
-		-ms-transform: rotate(225deg);
-			transform: rotate(225deg);
-	z-index: 51;
-  }
-  
-  .content__inputs__row_country:after {
+  .content__inputs__row_country_arrow::after {
 	content: "";
 	display: block;
 	position: absolute;
@@ -443,21 +441,34 @@
 	z-index: 51;
   }
 
+  .content__inputs__row_country_search:before {
+	content: "";
+	position: absolute;
+	left: 8px;
+	top: 50%;
+	margin-top: -5px;
+	width: 13px;
+	height: 13px;
+	background: url('../public/search.png') 0 0 / 13px 13px no-repeat;
+	z-index: 55;
+}
+  
+
   
 
 
   
   .select {
-	  background-color: red;
+	
 	width: 100%;
 	height: 100%;
 	-webkit-box-sizing: border-box;
 			box-sizing: border-box;
 	
 	padding-right: 40px;
-	padding-left: 60px;
+	padding-left: 30px;
 	position: relative;
-	background: none;
+	
 	-webkit-appearance: none;
 	-moz-appearance: none;
 		 appearance: none;
@@ -465,7 +476,7 @@
 	font-size: 1rem;
 	position: absolute;
 	top: 0;
-	left: -25px;
+	left: 0px;
 	
   }
 

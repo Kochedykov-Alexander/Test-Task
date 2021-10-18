@@ -3,7 +3,9 @@ import React, { useState,  useEffect} from 'react';
 
 export const useGeolocation = () => {
 
-
+	useEffect(() => {
+		navigator.geolocation.getCurrentPosition(successCallback, errorCallback);	
+	}, [])
 
 	const [city, setCity] = useState<string>('');
 	const [country, setCountry] = useState<string>('');
@@ -23,11 +25,6 @@ export const useGeolocation = () => {
 		console.error(error)
 	  }
 
-	useEffect(() => {
-		navigator.geolocation.getCurrentPosition(successCallback, errorCallback);	
-	}, [])
-
-	
 	  return {
 		city,
 		country,

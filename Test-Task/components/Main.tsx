@@ -34,10 +34,6 @@ const Main: React.FC = () => {
 	now.subtract('months', 7);  // takes 7 months of the current date
 	now.subtract('years', 7); 
 
-
-
-	
-
 	function sendEmail(e) {
 		
 		e.preventDefault();
@@ -47,8 +43,9 @@ const Main: React.FC = () => {
 		const email = form.querySelector('[name="email"]').value
 		const phone = form.querySelector('[name="phone"]').value
 		const street = form.querySelector('[name="street"]').value
-		const apt = form.querySelector('[name="name"]').value
+		const apt = form.querySelector('[name="apt"]').value
 		const city = form.querySelector('[name="city"]').value
+		const country = form.querySelector('[name="country"]').value
 		const zip = form.querySelector('[name="zip"]').value
 		const card_number = form.querySelector('[name="card_number"]').value
 		const expire_date = form.querySelector('[name="expire_date"]').value
@@ -57,7 +54,7 @@ const Main: React.FC = () => {
 		newOrder({
 			variables: {
 				input: {
-					full_name, email, phone, street, apt, city, zip, card_number, expire_date, security_code
+					full_name, email, phone, street, apt, city, country, zip, card_number, expire_date, security_code
 				}
 			}
 		}).then(({data}) => {
