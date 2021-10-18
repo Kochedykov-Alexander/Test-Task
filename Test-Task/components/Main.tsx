@@ -25,31 +25,22 @@ const Main: React.FC = () => {
 		}
 	}, [state])
 
-	const moment = require('moment');
-
-	const now = moment();
-
-	now.subtract('seconds', 7); // takes 7 seconds of the current time
-	console.log(now.subtract('days', 7));    // takes 7 days of the current date
-	now.subtract('months', 7);  // takes 7 months of the current date
-	now.subtract('years', 7); 
-
 	function sendEmail(e) {
 		
 		e.preventDefault();
 
 		const form = document.getElementById('form');
-		const full_name = form.querySelector('[name="name"]').value
-		const email = form.querySelector('[name="email"]').value
-		const phone = form.querySelector('[name="phone"]').value
-		const street = form.querySelector('[name="street"]').value
-		const apt = form.querySelector('[name="apt"]').value
-		const city = form.querySelector('[name="city"]').value
-		const country = form.querySelector('[name="country"]').value
-		const zip = form.querySelector('[name="zip"]').value
-		const card_number = form.querySelector('[name="card_number"]').value
-		const expire_date = form.querySelector('[name="expire_date"]').value
-		const security_code = form.querySelector('[name="security_code"]').value
+		const full_name = form.querySelector('[name="name"]')["value"]
+		const email = form.querySelector('[name="email"]')["value"]
+		const phone = form.querySelector('[name="phone"]')["value"]
+		const street = form.querySelector('[name="street"]')["value"]
+		const apt = form.querySelector('[name="apt"]')["value"]
+		const city = form.querySelector('[name="city"]')["value"]
+		const country = form.querySelector('[name="country"]')["value"]
+		const zip = form.querySelector('[name="zip"]')["value"]
+		const card_number = form.querySelector('[name="card_number"]')["value"]
+		const expire_date = form.querySelector('[name="expire_date"]')["value"]
+		const security_code = form.querySelector('[name="security_code"]')["value"]
 		
 		newOrder({
 			variables: {

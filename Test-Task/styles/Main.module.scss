@@ -58,3 +58,9 @@
 		}
 	}
 }
+
+@media print {
+	.main__body {
+		padding: 20px 0px 20px 0px;
+	}
+}

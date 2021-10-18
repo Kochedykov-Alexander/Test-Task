@@ -1,11 +1,17 @@
 import React, { useState,  useEffect} from 'react';
 
 
-export const useGeolocation = () => {
+
+
+
+export const useGeolocation = (isDetected : boolean) => {
 
 	useEffect(() => {
-		navigator.geolocation.getCurrentPosition(successCallback, errorCallback);	
-	}, [])
+		console.log(isDetected)
+		if (isDetected) {
+			navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+		}	
+	}, [isDetected])
 
 	const [city, setCity] = useState<string>('');
 	const [country, setCountry] = useState<string>('');

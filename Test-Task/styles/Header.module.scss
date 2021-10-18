@@ -1,5 +1,7 @@
 @import "index.module.scss";
 
+
+
 .header {
 	border-bottom: 1px solid #BB0CB2;
 	background: #FFFFFF;
@@ -113,4 +115,11 @@
 		}
 	}
 			
+}
+
+
+@media print {
+	.header {
+		display: none;
+	}
 }

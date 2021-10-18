@@ -48,3 +48,12 @@
 .bold {
 	font-weight: bold;
 }
+
+@media print {
+	.order {
+		margin-top: 20px;
+	}
+	.order__print_recipe {
+		display: none;
+	}
+}

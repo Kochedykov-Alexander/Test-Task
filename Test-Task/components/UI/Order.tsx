@@ -22,7 +22,7 @@ interface OrderState {
 const Order: React.FC<OrderState> = ({order}) => {
 
 	
-	const [selectedOrder, setSelectedOrder] = useState();
+	const [selectedOrder, setSelectedOrder] = useState({});
 	console.log(order)
 	const {data, loading, error, refetch} = useQuery(GET_ORDER_BY_ID, {
 		variables: {
@@ -39,6 +39,10 @@ const Order: React.FC<OrderState> = ({order}) => {
 	
 	if (loading) {
 		return <h1>Loading...</h1>
+	}
+
+	const printRecipe = () => {
+		window.print()
 	}
 
 	return (
@@ -58,7 +62,7 @@ const Order: React.FC<OrderState> = ({order}) => {
 			<div className={styles.order__estimated}>
 				Estimated delivery Day is <p className={styles.bold}>Friday 1st April 2016</p>
 			</div>	
-			<a className={styles.order__print_recipe}>Print Recipe</a>
+			<a className={styles.order__print_recipe} onClick={printRecipe}>Print Recipe</a>
 			</div>
 			)}
 		</div>
