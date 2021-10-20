@@ -13,6 +13,8 @@ const Products: React.FC = () => {
 	const {data, loading, error, refetch} = useQuery(GET_ALL_PRODUCTS, {pollInterval: 500});
 	
 
+	
+
 	useEffect(() => {
 		if (!loading) {
 			setSelectedProducts(data.getAllProducts)
@@ -38,7 +40,7 @@ const Products: React.FC = () => {
 				{!loading &&  selectedProducts.map(product => 
 					<li className={styles.products__product} key={product.id}>
 						<div className={styles.product__image}>
-							<Image src= '/../public/sumka.png' width={45} height={45} alt=""/>
+							<img src= '../../sumka.png' width={45} height={45} alt=""/>
 						</div>
 						<div className={styles.product__content}>
 							<div className={styles.product__content_name}>

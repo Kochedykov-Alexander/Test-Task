@@ -31,7 +31,6 @@ const Order: React.FC<OrderState> = ({order}) => {
 
 	
 	const [selectedOrder, setSelectedOrder] = useState<OrderProps>();
-	console.log(order)
 	const {data, loading, error, refetch} = useQuery(GET_ORDER_BY_ID, {
 		variables: {
 			order

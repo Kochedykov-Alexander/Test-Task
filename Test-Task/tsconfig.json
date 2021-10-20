@@ -16,13 +16,17 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve"
+    "jsx": "preserve",
+    "allowSyntheticDefaultImports": true
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx"
-, "shared/SentContextProvider.tsx", "shared/context.ts", "hooks/useConfirmation.js"  ],
+    "**/*.tsx",
+    "shared/SentContextProvider.tsx",
+    "shared/context.ts",
+    "hooks/useConfirmation.js"
+  ],
   "exclude": [
     "node_modules"
   ]
