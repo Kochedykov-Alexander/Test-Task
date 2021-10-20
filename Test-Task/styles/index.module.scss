@@ -1,11 +1,11 @@
 .wrapper {
 	color: #5A1094;
 	background-color: #E6E9F0;
-	min-height: 100%;
 	overflow: hidden;
+	font-family: 'Open Sans', sans-serif;
 	display: flex;
 	flex-direction: column;
-	font-family: 'Open Sans', sans-serif;
+	min-height: 100vh;
 }
 
 ._container {
